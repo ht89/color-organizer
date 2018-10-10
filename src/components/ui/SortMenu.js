@@ -16,7 +16,7 @@ const SortMenu = ({ sort="SORTED_BY_DATE", onSelect=f=>f}) =>
                className={(sort === options[item]) ? "selected" : null}
                onClick={e => {
                    e.preventDefault()
-                   onSelect(options[item])
+                   onSelect(item)
                }}>{item}</a>
         )}
     </nav>
