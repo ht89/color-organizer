@@ -1,10 +1,7 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types';
-import AddColorForm from './AddColorForm'
-import SortMenu from './SortMenu';
-import ColorList from './ColorList'
 import '../../stylesheets/APP.scss'
-import { sortFunction } from '../lib/array-helpers';
+import { Menu, NewColor, Colors } from './containers';
 
 class App extends Component {
     // add context named 'store' to component
@@ -29,15 +26,11 @@ class App extends Component {
     }
 
     render() {
-        const { colors, sort } = store.getState()
-
-        const sortedColors = [...colors].sort(sortFunction(sort));
-
         return (
             <div className='app'>
-                {/* <SortMenu /> */}
-                <AddColorForm />
-                <ColorList colors={sortedColors}/>
+                {/* <Menu /> */}
+                <NewColor />
+                <Colors />
             </div>
         )
     }
