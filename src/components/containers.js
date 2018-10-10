@@ -2,7 +2,7 @@
     All of the Redux functionality is connected here (action creators, store.getState & store.dispatch)
 */
 
-import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 import AddColorForm from './ui/AddColorForm';
 import SortMenu from './ui/SortMenu';
 import ColorList from './ui/ColorList';
@@ -14,41 +14,41 @@ import {
 } from '../actions';
 import { sortFunction } from '../lib/array-helpers';
 
-export const NewColor = (props, { store }) =>
-    <AddColorForm onNewColor={(title, color) =>
-        store.dispatch(addColor(title, color))
-    } />
+export const NewColor = connect(
+    null,
+    dispatch => 
+    ({
+        onNewColor(title, color) {
+            dispatch(addColor(title, color))
+        }
+    })
+) (AddColorForm)
 
-NewColor.contextTypes = {
-    store: PropTypes.object
-}
-
-export const Menu = (props, { store }) =>
-    <SortMenu sort={store.getState().sort}
-        onSelect={sortBy =>
-            store.dispatch(sortColors(sortBy))
-        } />
-
-Menu.contextTypes = {
-    store: PropTypes.object
-}
-
-export const Colors = (props, { store }) => {
-    const { colors, sort } = store.getState();
-
-    const sortedColors = [...colors].sort(sortFunction(sort));
-
-    return (
-        <ColorList colors={sortedColors}
-            onRemove={id =>
-                store.dispatch(removeColor(id))
+export const Menu = connect(
+    state =>
+        ({
+            sort: state.sort
+        }),
+    dispatch =>
+        ({
+            onSelect(sortBy) {
+                dispatch(sortColors(sortBy))
             }
-            onRate={(id, rating) =>
-                store.dispatch(rateColor(id, rating))
-            } />
-    )
-}
+        })
+) (SortMenu)
 
-Colors.contextTypes = {
-    store: PropTypes.object
-}
+export const Colors = connect(
+    state =>
+        ({
+            colors: [...state.colors].sort(sortFunction(state.sort))
+        }),
+    dispatch =>
+        ({
+            onRate(id, rating) {
+                dispatch(rateColor(id, rating))
+            },
+            onRemove(id) {
+                dispatch(removeColor(id))
+            }
+        })
+) (ColorList)
