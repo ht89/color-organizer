@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --progress",
     "prestart": "npm run build",
-    "start": "opener http://localhost:3000 & httpster -p 3000 -d ./dist"
+    "start": "opener http://localhost:3000 & httpster -p 3000 -d ./dist",
+    "test": "jest"
   },
   "keywords": [
     "React",
@@ -19,14 +20,15 @@
   "author": "Alex Banks <alex@moonhighway.com> (http://www.moonhighway.com)",
   "license": "MIT",
   "devDependencies": {
-    "opener": "1.4.3",
     "babel-core": "6.26.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "css-loader": "0.28.7",
     "node-sass": "4.5.3",
+    "opener": "1.4.3",
     "postcss-loader": "2.0.6",
     "sass-loader": "6.0.6",
     "style-loader": "0.18.2",
